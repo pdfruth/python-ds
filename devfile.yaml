@@ -17,7 +17,7 @@ commands:
   - id: pip insall
     exec:
       label: "pip install requirements"
-      components: python
+      component: python
       workingDir: '${CHE_PROJECTS_ROOT}/voting-app-py'
       commandLine: python -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip && python -m pip install -r requirements.txt
       group:
