@@ -6,7 +6,7 @@ import socket
 import random
 import json
 
-#This is a comment
+# This is a comment
 
 option_a = os.getenv('OPTION_A', "Nodejs")
 option_b = os.getenv('OPTION_B', "Python")
@@ -17,18 +17,19 @@ proc = platform.processor()
 
 app = Flask(__name__)
 
+
 def get_redis():
     if not hasattr(g, 'redis'):
         redishost = os.environ.get('REDIS_HOST', 'new-redis')
         redispassword = os.environ.get('REDIS_PASSWORD', 'admin')
-        print ("Connecting to Redis using " + redishost)
+        print("Connecting to Redis using " + redishost)
         g.redis = Redis(host=redishost, db=0, socket_timeout=5, password=redispassword)
-        print (g.redis.ping())
+        print(g.redis.ping())
 
     return g.redis
 
 
-@app.route("/", methods=['POST','GET'])
+@app.route("/", methods=['POST', 'GET'])
 def hello():
     voter_id = request.cookies.get('voter_id')
     if not voter_id:
@@ -42,7 +43,6 @@ def hello():
         data = json.dumps({'voter_id': voter_id, 'vote': vote})
         redis.rpush('votes', data)
         redis.ping
-       
 
     resp = make_response(render_template(
         'index.html',
